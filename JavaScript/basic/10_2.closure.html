@@ -1,0 +1,22 @@
+<script>
+    function getNumber(){
+        let number = 5;
+
+        function inner(){
+            number++;
+            return number;
+        }
+        return inner;
+    }
+
+    let run = getNumber();
+
+    
+    console.log(run())
+    console.log(run())
+    console.log(run())
+    console.log(run())
+    console.log(run())
+ 
+
+</script>

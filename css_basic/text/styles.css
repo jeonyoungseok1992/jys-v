@@ -1,0 +1,12 @@
+.text-a{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+
+    font-style: italic;
+    text-align: center;
+    line-height: 36px;
+
+    text-decoration: underline;
+    text-decoration: none;
+}

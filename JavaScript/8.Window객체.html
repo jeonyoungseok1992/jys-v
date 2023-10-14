@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>\
+    <style>
+        .area {
+            border: 1px solid black;
+            background: lightblue;
+            height: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Window 객체</h1>
+    <p>Window 객체는 자바스크립트의 최상위 객체이며 크게 BOM과 DOM으로 나뉨</p>
+    <br>
+    <p>- BOM(Browser Object Model) : location객체, screen객체, navigator객체, history객체</p>
+    <p>- DOM(Document Object Model) : document객체</p>
+
+    <br>
+    <h3>[window.]open("url","창이름","창의특성")</h3>
+    <button onclick="test1()">네이버</button>
+    <script>
+        function test1() {
+            console.log(window)
+            // window.open();
+            /**
+             * window.open(첫번째, 두번째, 세번째);
+             * 첫번째 : 새창에서 열고자하는 url주소
+             * 두번째 : 창이름(target), 창이름이 같은게 이미 열려있을 경우 새로 열러지않고 이미 열려있는 창으로 대체
+             * 세번째 : 새창의 너비, 높이, 주소창여부, 툴바여부 등등 새로운 창의 특성을 설정
+            */
+
+            // window.open("http://www.naver.com", "ㅋㅋㅋㅋ");
+
+
+            /**
+             * *창의 특성
+             * => px
+             * width: 창의너비
+             * height: 창의높이
+             * 
+             * => yes | no
+             * resizeable : 창의 크기 조절 가능 여부
+             * location: 주소창
+             * menubar: 메뉴바
+             * scrollbars: 스크롤바
+             * status: 상태표시줄
+             * toolbar: 도구모음
+             * 
+             * */
+
+            /*
+                공통 : 주소창 수정안됨, toolbar없음, 상태표시줄 없음, 메뉴바없음
+                크롬 : 스크롤바 있음, resizeable가능
+            */
+
+            //  window.open("http://www.naver.com", "ㅋㅋㅋㅋㅋ", "width=500, height=600, resizeable=no, location=no, menubar=no, scrollbars=no, status=no,toolbar=no");
+            window.open("http://www.naver.com", "ㅋㅋㅋㅋㅋㅋ")
+        }
+    </script>
+
+    <h3>window 객체의 timer관련 메소드</h3>
+    <h4>- [window.]setTimeout(함수, 시간ms)</h4>
+    <button onclick="test2();">실행확인</button>
+    <script>
+        function test2() {
+            // const myWindow = window.open(); // 새로열린 창의 window객체를 반환받는다.
+
+            // //코드실행
+            // setTimeout(function(){
+            //     //2초뒤에 함수실행
+            //     myWindow.close();
+            // }, 2000)
+
+            console.log("start") //코드진행
+            setTimeout(function () { //코드진행 -- 일부는 대기 3초 => 함수실행해
+                console.log("Timeout run1")
+            }, 3000)
+            console.log("finish")//코드진행 
+
+            //setTimeout : 내가 제시한 일정 시간 후에 해당 함수 "단 한번"만 실행
+        }
+    </script>
+
+    <h4>- [window.]setInterval(함수, 시간ms)</h4>
+    <button onclick="test3();">실행확인</button>
+    <div class="area" id="area3"></div>
+
+    <script>
+        function test3(){
+            const area = document.getElementById('area3');
+            area.style.fontSize = '20px';
+
+            /*
+            let count = 1;
+            setInterval(function(){ 
+                area.innerHTML = count++;
+            }, 100)
+            */
+
+
+            setInterval(function(){
+                const now = new Date();
+
+                let hour = now.getHours();
+                if (hour > 12) {
+                    hour = 'PM ' + (hour - 12);
+                } else {
+                    hour = 'AM ' + hour;
+                }
+
+                let min = now.getMinutes();
+                if (min < 10) {
+                    min = '0' + min;
+                }
+
+                let sec = now.getSeconds();
+                if (sec < 10) {
+                    sec = '0' + sec;
+                }
+
+                area.innerHTML = hour + ':' +  min + ':' + sec;
+
+
+            },1000)
+        }
+    </script>
+
+    <hr>
+
+    <h2>BOM(Browser Object Model)</h2>
+    
+    <h3>location 객체</h3>
+    <p>브라우저 주소창과 관련된 객체</p>
+    
+    <button onclick="console.log(location)">실행확인</button>
+    <br><br>
+    
+    <!-- a 태그는 애초에 클릭시 요청할 url을 작성해둘 수 있는 href를 제공한다.-->
+    <a href="http://www.naver.com">네이버로 이동</a><br>
+    <button onclick="location.href = 'http://www.naver.com';">네이버로 이동</button><br>
+    <div onclick="location.href = 'http://www.naver.com';">네이버로 이동</div>
+
+    <br><br>
+
+    <button onclick="location.assign('http://www.google.com');">구글로 이동</button>
+    <button onclick="location.replace('http://www.google.com');">구글로 이동</button>
+    <!-- replace는 뒤로가기를 사용할 수 없음-->
+    <br><br>
+
+    <button onclick="location.href = location.href">새로고침</button>
+    <button onclick="location.reload()">새로고침</button>
+    <!-- reload는 현재 위치에서 새로고침 -->
+
+    <hr>
+
+    <h1>* DOM(Document Object Model)</h1>
+    <p>
+        HTML에 있는 각각의 요소들을 노드(Node)라고 함<br>
+        > 요소노드(Element Node) : 태그 그 자체만 의미<br>
+        > 텍스트노드(Text Node) : 캐그 내에 기록되는 내용<br>
+    </p>
+
+
+    <div>
+        <input type="text">
+        <h1>안녕</h1>
+        <ul>
+            <li>목록1</li>
+            <li>목록2</li>
+        </ul>
+    </div>
+
+    <h2>*노드(요소) 생성과 관련된 메소드</h2>
+    <h3>-텍스트노드가 존재하는 노드 생성 (시작태그 + 종료태그)</h3>
+    
+    <button onclick="test4();">실행확인</button>
+    <div class="area" id="area4"></div>
+
+    <script>
+        function test4(){
+            // <h3>안녕하세요</h3>
+
+            const area = document.getElementById('area4');
+
+            //동적으로 요소 만드는 방법1. "문자열"로 만드는 방법
+            //area.innerHTML = '<h3>안녕하세요</h3>';
+
+            //동적으로 요소 만드는 방법2. document에서 제공하는 메소드를 통해 "요소객체"생성
+            //ElementNode 객체생성 : document.createElement('태그');
+            let h3El = document.createElement('h3'); // <h3></h3>
+            
+            //TextNode 객체생성 : document.createTextNode('문구');
+            let textNode = document.createTextNode('안녕하세요.'); // 안녕하세요.
+
+            //두개의 노드를 결합 (즉, 요소노드 하위로 텍스트노드 추가)
+            h3El.appendChild(textNode); // <h3>안녕하세요</h3>
+            console.log(h3El);
+
+           //area.innerHTML = h3El;
+           area.appendChild(h3El);
+        }
+    </script>
+
+    <h3>-텍스트노드가 존재하지 않는 노드 생성(시작태그만 존재하는 태그)</h3>
+    <button onclick="test5()">요소생성</button>
+    <div id="area5" class="area"></div>
+
+    <script>
+        function test5(){
+            // <img src="" width="" height="">
+
+            let img = document.createElement('img') // <img>
+            img.src = "https://s.pstatic.net/shopping.phinf/20230913_11/0853cdce-8e8d-4a30-affd-daed6b1156ba.jpg?type=f294_378"
+            img.width = '100';
+            img.height = '300';
+
+            let area = document.getElementById('area5');
+            area.appendChild(img)
+        }
+    </script>
+
+    <h3>* 노드(요소) 삭제와 관련된 메소드</h3>
+    <button onclick="test6()">요소삭제</button>
+
+    <script>
+        function test6(){
+            //지우고자하는 요소객체.remove();
+            let area = document.getElementById('area5')
+            area.firstChild.remove();
+            //$(area).empty();
+        }
+    </script>
+</body>
+
+</html>

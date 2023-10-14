@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * this
+         * 
+         * JS는 정적 스코프를 사용하기 때문에 함수의 상위 스코프가 정의 시점에 평가된다.
+         * 
+         * 하지만 this키워드는 바인딩이 객체가 생성되는 시점에 결정된다.
+         * (함수를 누가 호출했냐에 따라 this가 결정된다.)
+         * */
+
+        const test = function () {
+            let tmp = 9999;
+            function test2(){
+                console.log(this);
+            }
+        }
+        test();
+
+        // const test = function(){
+        //     return this;
+        // }
+
+        // console.log(test() === window)
+
+        const human = {
+            name: 'sumin',
+            age: 55,
+            hello: function () {
+                console.log(this)
+                return `안녕하세요 ${this.name}입니다.`
+            }
+        }
+
+        console.log(human.hello());
+
+        function Human(name, age) {
+            this.name = name;
+            this.age = age;
+
+            this.hello = function () {
+                return `안녕하세요 ${this.name}입니다.`
+            }
+        }
+
+        const human2 = new Human('성호', 40);
+        console.log(human2.hello());
+
+        human2.move = function () {
+            function move2() {
+                console.log(this)
+                return `${this.name}이 움직입니다`
+            }
+            return move2();
+        }
+
+        console.log(human2.move());
+
+        /**
+         * 
+         * 1) 일반 함수 호출할땐 this가 최상위 객체(window)를 가리킨다.
+         * 2) 메서드로 호출할 땐 호출된 객체를 가리킨다.
+         * 3) 이벤트로 호출할 땐 이벤트를 일으킨 요소를 가리킨다.
+         * 
+         * */
+
+        /**
+         * apply, call, bind
+         * */
+
+        function getName() {
+            
+            return this.name;
+        }
+
+        const human3 = new Human('민수', 12);
+        let getNameTmp = getName.bind(human3);
+        console.log(getName.call(human3));
+
+
+        var i = 1000;
+        for (var i = 0; i < 10; i++) {
+            console.log(i);
+        }
+
+        console.log("i = " + i); // 10
+
+        
+        for (let i = 0; i < 10; i++) {
+            console.log(i);
+        }
+
+        console.log("i = " + i); // 10
+
+    </script>
+</body>
+
+</html>

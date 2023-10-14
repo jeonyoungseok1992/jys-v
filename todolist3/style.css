@@ -1,0 +1,64 @@
+*{
+    box-sizing: border-box;
+}
+
+h1{
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    text-align: center;
+}
+
+
+#container{
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#container > button{
+    height: 40px;
+    width: 50px;
+    border: none;
+    border-radius: 0 30px 30px 0;
+}
+
+#inputBox{
+    height: 40px;
+    width: calc(100% - 50px);
+    border: none;
+    background-color: rgb(66, 197, 214);
+}
+
+#view{
+    
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.newView{
+    width: 100%;
+    background-color: rgb(71, 129, 255);
+    display: flex;
+    justify-content: center;
+    position: relative;
+   
+}
+
+.newView > button{
+    
+    position: absolute;
+    right: 0;
+}
+
+.doneLine{
+    text-decoration: line-through;
+}
+
+

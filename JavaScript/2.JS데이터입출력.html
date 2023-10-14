@@ -1,0 +1,121 @@
+<h1>1. 데이터 출력하는 구문</h1>
+<p>
+    1) [window.]alert("알림창에 출력할 문구"); <br>
+    2) [window.]console.log("콘솔창에 출력할 문구");<br>
+    3) document.write("화면상에 출력할 문구");<br>
+    4) 선택한요소.innerHTML | innerText = "요소에 출력할 문구";
+</p>
+
+<h3>3) document.write("화면상에 출력할 문구");</h3>
+<button onclick="documentWrite()">화면상에 출력</button>
+
+<script>
+    function documentWrite(){
+        document.write("끝났습니다~");
+        document.write("끝났습니다~<br><br>");
+        document.write("끝났습니다~");
+        document.write("끝났습니다~");
+    }
+</script>
+
+<h3>4) 선택한요소.innerHTML | innerText = "요소에 출력할 문구";</h3>
+<div id = "area1" style="width: 500px; height: 300px; border: 1px solid black;">변경되기 전<br></div>
+<button onclick="printValue()">확인</button>
+
+<script>
+    function printValue(){
+        const area = document.getElementById('area1');
+        console.log(area);
+
+        console.log(area.id); // id : 해당 요소의 아이디속성
+        console.log(area.className); // className : 해당 요소의  클래스속성
+
+        console.log(area.innerHTML)
+        // area.innerText = "확인되었습니다."
+        area.innerHTML = "<span style = 'background: gray;'>확인되었습니다.</span>";
+
+        console.log(area.innerText)
+        area.innerText = "<br>변경두번째"
+
+        // const spanTmp = document.createElement('span');
+        // spanTmp.style.background = 'gray';
+        // spanTmp.innerText = '확인되었습니다.';
+        // console.log(spanTmp)
+        // area.appendChild(spanTmp);
+    }
+</script>
+<br>
+<hr>
+<h1>2. 데이터를 입력받는 구문 (변수에 기록 가능)</h1>
+<p>
+    1) 변수 = [window.]confirm("질문내용");<br>
+    2) 변수 = [window.]prompt("질문내용");<br>
+    3) 변수 = 선택한요소.속성(id, className, innerHTML, innerText, ..)<br>
+    4) 변수 = 선택한input요소.vlaue;
+</p>
+
+<h3> 1) [window.]confirm("질문내용")</h3>
+<p>
+    confirm 호출시 "질문내용"과 "확인/취소"버튼이 존재하는 알림창 발생<br>
+    확인버튼 클릭시 true, 취소버튼 클릭시 false를 반환
+</p>
+<button onclick="testConfirm()">클릭</button>
+
+<script>
+    function testConfirm(){
+        let isCheck = confirm("저장하시겠습니까?");
+        if (isCheck) {
+           //저장코드
+        } 
+        console.log(isCheck);
+    }
+</script>
+
+<h3> 2) [window.]prompt("질문내용")</h3>
+<p>
+    prompt호출시 "질문내용"과 입력할 수 있는 "텍스트 상자", "확인/취소"이 보여지는 알림창 발생<br>
+    확인 버튼 클릭시 텍스트 상자에 입려되어있는 값이 문자열로 반환,
+    취소버튼 클릭시 null을 반환
+</p>
+<button onclick="testPrompt()">클릭</button>
+<script>
+    function testPrompt(){
+        let isValue = prompt("오늘 점심 뭐 드실겁니까?");
+        console.log(isValue);
+
+        const area = document.getElementById('area1');
+        area.innerText = "오늘 점심은" + isValue + "먹기로함";
+        console.log(area);
+
+        console.log(area.id)
+        console.log(area.innerText)
+
+        area.style.background = 'red';
+        console.log(area.style.background);
+    }
+</script>
+
+<h3> 4) 선택한input요소.vlaue</h3>
+아이디 :   <input type="text" id="id-input"><br>
+비밀번호 : <input type="password" id="pwd-input"><br>
+<button onclick="inputValueTest()">클릭</button><br>
+<input id="result-input" type="text">
+
+<script>
+    function inputValueTest(){
+        //아이디 비밀번호를 가지고와서 아래쪽에 결과창에 띄워주기
+        let idInput = document.getElementById('id-input');
+        idInput.value = 'test123';
+        console.log(idInput)
+        console.log(idInput.value);
+        let pwdInput = document.getElementById('pwd-input');
+        console.log(pwdInput)
+        console.log(pwdInput.value);
+
+        let result = document.getElementById('result-input');
+        result.value = idInput.value + ", " + pwdInput.value;
+        idInput.value = '';
+        pwdInput.value = '';
+    }
+</script>
+

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .area{
+            border: 1px solid black;
+            width: 500px;
+            height: 100px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>함수 (function)</h1>
+
+    <h3>* 선언적 함수</h3>
+    <pre>
+    function 함수명([매개변수, 매개변수, ...]){
+        해당함수 호출시 실행할 소스코드;
+
+        [return 결과값;]
+    }
+    </pre>
+
+    <button onclick="test1()">실행확인</button>
+    <div class="area" id="area1"></div>
+    <script>
+        function test1(){
+            document.getElementById('area1').innerHTML += 'test1()함수 실행<br>';
+        }
+    </script>
+
+    <br>
+
+    <h3>* 익명 함수 (이름이 없는 함수)</h3>
+    <pre>
+    변수 | 속성 = function ([매개변수, 매개변수, ...]){
+        해당함수 호출시 실행할 소스코드;
+    
+        [return 결과값;]
+    }
+
+    특정 변수나 속성에 대입되는 함수
+    (주로 이벤트 핸들러 작성시 사용)
+    </pre>
+
+    <button id = 'btn1'>실행확인</button>
+    <div class="area" id="area2"></div>
+    <script>
+        const btn = document.getElementById('btn1'); // id가 btn1인 요소를 가져온다.
+
+        btn.onclick = function(){ // 이벤트속성에 대입되는 function == 이벤트 핸들러
+            document.getElementById('area2').innerHTML += '이벤트핸들러를 통해 실행됨<br>';
+        }
+
+        btn.click();
+    </script>
+
+    <h3>함수의 매개변수</h3>
+
+    <button onclick="test2('안녕하세요.');">실행확인</button>
+    <button onclick="test2(10);">실행확인</button>
+    <button onclick="test2([1,2,3]);">실행확인</button>
+    <button onclick="test2(true);">실행확인</button>
+
+    <button onclick="test2(prompt('입력해보세요'));">실행확인</button>
+
+    <!-- 전달하는 인자의 갯수와 상관없이 매개변수가 받아주는 만큼만 사용한다.-->
+    <button onclick="test2('안녕하세요', '반갑습니다')">실행확인</button>
+    <button onclick="test2(10, '안녕하세요', true)">실행확인</button>
+    <div class="area" id="area3"></div>
+
+    <script>
+        function test2(value){
+
+            document.getElementById('area3').innerHTML += value;
+        }
+    </script>
+
+    <h3>* 매개변수 관련 arguments배열</h3>
+    <p>
+        함수 호출시 전달되는 값은 내부적으로 arguments배얄에 담김<br>
+        *arguments : 모든 함수마다 내부적으로 하나씩 존재하는 배열객체
+    </p>
+
+    <button onclick="test3(10,15,30,1,5,7,24,3)">실행확인</button>
+    <div class="area" id="area4"></div>
+
+    <script>
+        function test3(){
+            console.log(arguments);
+            console.log(arguments[0]);
+
+            const area4 = document.getElementById('area4');
+
+            let sum = 0;
+            for (let num of arguments){
+                sum += num;
+            }
+            area4.innerHTML = "총합 : " + sum + "<br>";
+        }
+    </script>
+
+    <h3>* 매개변수에 this관련 전달하기</h3>
+
+    <!-- this : 현재 (이벤트가 발생한)요소객체-->
+    <button onclick="test4(this);">버튼1</button>
+    <button onclick="test4(this);"><span>버튼2</span></button>
+    <input type="button" value="버튼3" onclick="test4(this);">
+    <button id = 'btn4' onclick="test4(this)">버튼4</button>
+    <button onclick="test4(this)">버튼5</button>
+    <script>
+        function test4(target){ // 이벤트가 발생한 요소에 동적인 효과
+            console.log(target)
+            target.innerText = '클릭됨';
+            target.style.background = 'red';
+        }
+    </script>
+
+    <hr>
+
+    <h2>함수의 리턴</h2>
+
+    <h3>* 일반적인 값 리턴</h3>
+
+    <button onclick="test6()">실행확인</button>
+    <div class="area" id="area5"></div>
+
+    <script>
+        // 1~100사이의 랜덤값 구해서 반환해주는 함수 만들기
+        function ran(){
+            const random = parseInt(Math.random() * 100 + 1); // 0 ~ 0.99
+            return random;
+        }
+
+        function test6(){
+            document.getElementById('area5').innerHTML += ('랜덤값 : ' + ran() + "<br>");
+        }
+    </script>
+
+    <button onclick="console.log(ran())">실행확인</button>
+
+    <h3>* 익명함수를 리턴</h3>
+    이름 : <input type="text" id="userName">
+    <button onclick="test7()()">실행확인</button>
+
+    <script>
+        function test7(){
+            //let inputEl = document.getElementById('userName');// userName이라는 id를 가진 요소를 변수에 담아준다.
+        
+            //console.log(inputEl.value);
+            let tmp = function(){
+                let inputEl = document.getElementById('userName');
+                console.log(inputEl.value);
+            }
+            return tmp;
+        }
+    </script>
+
+</body>
+</html>

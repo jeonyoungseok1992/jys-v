@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- jquery 3.7.1 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <style>
+        .area{
+            border: 1px solid black;
+            height: 300px;
+        }
+
+        .qa-box > div{
+            background: beige;
+            border: 1px solid yellow;
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 6px;
+            cursor: pointer;
+        }
+
+        .qa-box > p{
+            border: 1px solid rgb(221, 221, 221);
+            width: 300px;
+            height: 100px;
+            border-radius: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>jQuery</h1>
+    
+    <h3>jQuery이벤트</h3>
+    <div class="area" id="wrap">
+        <h6>클릭시 h6요소추가</h6>
+    </div>
+
+    <script>
+        // 방법1 이벤트 메소드 => 동적으로 만들어진 요소에 이벤트 적용 안됨
+        // $('#wrap > h6').click(function(){
+        //     $('#wrap').append('<h6>클릭동작으로 인해 만들어진 h6</h6>');
+        // })
+
+        //방법2 on메소드 => 동적으로 만들어진 요소에 이벤트 적용 안됨
+        // $('#wrap > h6').on('click',function(){
+        //     $('#wrap').append('<h6>클릭동작으로 인해 만들어진 h6</h6>');
+        // })
+
+        //방법3 => 동적으로 만들어진 요소에 이벤트 적용이 가능하다.
+        // $('부모요소').on('click', '자식요소', function(){실행할 코드}
+        // $('#wrap').on('click', 'h6', function(){
+        //     $('#wrap').append('<h6>클릭동작으로 인해 만들어진 h6</h6>');
+        // })
+
+        // //방법4 단한번만 실행
+        // $('#wrap > h6').one('click', function(){
+        //     $('#wrap').append('<h6>클릭동작으로 인해 만들어진 h6</h6>');
+        // })
+    </script>
+
+    <hr>
+    <h2>시각적인 효과(Effect 메소드)</h2>
+
+    <p>페이지 내에 애니메이션 효과를 주기위해 사용되는 메소드</p>
+    
+    <h3>* show() hide() toggle()</h3>
+    <p>선택된 요소가 점점 커지면서 보여지고, 점점 작아지면서 사라지게 만드는 메소드</p>
+
+    <button id="show-btn">보여주기</button>
+    <button id="hide-btn">숨기기</button>
+    <button id="toggle-btn">토글</button>
+    <br><br>
+    <img id="hideAndShowImg" src="./image.jpeg" alt="임시이미지" style="width: 300px;">
+    <!-- 
+        절대경로 : 물리적인경로
+        상대경로 : 현재 파일로부터 찾아가는 경로
+    -->
+
+    <script>
+        $(function(){
+            $('#show-btn').click(function(){
+                $('#hideAndShowImg').show(2000);
+            })
+
+            $('#hide-btn').click(function(){
+                $('#hideAndShowImg').hide(2000);
+            })
+
+            $('#toggle-btn').click(function(){
+                $('#hideAndShowImg').toggle(2000);
+            })
+        })
+    </script>
+
+    <h3>* fadeIn() fadeOut() fadeToggle()</h3>
+    <p>선택된 요소가 점점 투명해지면서 사라지거나 보여지게 해주는 메소드</p>
+
+    <button id="fadein-btn">보여주기</button>
+    <button id="fadeout-btn">숨기기</button>
+    <button id="fadetoggle-btn">토글</button>
+    <br><br>
+    <img id="fadeImg" src="./image.jpeg" alt="임시이미지" style="width: 300px;">
+
+
+    <script>
+        $(function(){
+            $('#fadein-btn').click(function(){
+                $('#fadeImg').fadeIn(2000);
+            })
+
+            $('#fadeout-btn').click(function(){
+                $('#fadeImg').fadeOut(2000);
+            })
+
+            $('#fadetoggle-btn').click(function(){
+                $('#fadeImg').fadeToggle(2000);
+            })
+        })
+    </script>
+
+    <h3>* slideDown()과 sildeUp()</h3>
+
+    <div class="qa-box">
+        <div>Q. 반품은 언제되나요?</div>
+        <p>A. 지금 확인중입니다.</p>
+
+        <div>Q. 상품 위치를 알고싶어요</div>
+        <p>A. 대한민국 어딘가에 있습니다.</p>
+
+        <div>Q. 해당 재고 남아 있나요?</div>
+        <p>A. 네 재고 남아 있습니다.</p>
+
+        <div>Q. 판매자가 연락이 되지 않습니다.</div>
+        <p>A. 문의량이 많아 지금은 연결이 어렵습니다.</p>
+
+        <div>Q. 연락가능한 시간을 알려주세요</div>
+        <p>A. 카톡으로 남겨주시면 답변 드리겠습니다.</p>
+    </div>
+
+    <script>
+        $(function(){
+            $('.qa-box > div').click(function(){
+                //$(this) => 클릭이벤트가 발생한 요소
+                // $(this).next() => 클릭이벤트가 발생한 요소(div)의 뒤에있는 요소(p)
+
+                let $p = $(this).next(); // jQuery방식으로 선택된 요소를 담아둠
+
+                if($p.css('display') === 'none') {
+                    //보여지게
+                    $('.qa-box > p').slideUp();
+
+                    $p.slideDown();
+                } else {
+                    //사라지게
+                    $p.slideUp();
+                }
+                
+            })
+        })
+    </script>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</body>
+</html>

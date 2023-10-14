@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            background: rgb(138, 198, 216);
+            padding: 10px;
+            margin-bottom: 30px;
+        }
+        .container:hover{
+            background-color: rgb(245, 170, 182);
+        }
+        .focus-input:focus{
+            background: rgb(255, 225, 170);
+        }
+        .container-two > div{
+            width: 100px;
+            background: rgb(245, 170, 182);
+            height: 100px;
+            float: left;
+        }
+        .container-two > div:nth-child(2n + 1){
+            background: rgb(138, 198, 216);
+        }
+        .container-two > div:last-child{
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container container-box">
+        마이스를 올려보세요.
+    </div>
+    <input class="focus-input" type="text">
+    <div class="container-two">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+    </div>
+</body>
+</html>
